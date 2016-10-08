@@ -1,0 +1,14 @@
+Package: rindeed
+Type: Package
+Title: Scrape Indeed
+Version: 0.1.0
+Author: John Coene
+Maintainer: John Coene <jcoenep@gmail.com>
+Description: Scrapes the job portal indeed.com and returns neat results in data.frames or lists. Not sure it meets TOS.
+License: MIT + file LICENSE
+LazyData: TRUE
+Imports:
+    rvest,
+    xml2,
+    magrittr
+RoxygenNote: 5.0.1
