@@ -11,3 +11,19 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 ```
+
+# rindeed
+
+Scrape [indeed.com](www.indeed.com) search results.
+
+### Examples
+
+```{r}
+library(rindeed)
+ds <- in_scrape("data scientist", "United States")
+da <- in_scrape("data analyst", "New York", 20)
+```
+
+```{r, echo=FALSE}
+knitr::kable(da)
+```

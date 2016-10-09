@@ -18,12 +18,29 @@ in_scrape(q, l, n = 10, base.url = "http://www.indeed.com",
 
 \item{sleep}{break between queries in seconds, applies when requesting more than the default \code{10} results (\code{n})}
 
-\item{verbose}{if \code{TRUE} prints feedback in console}
+\item{verbose}{sets verbose of \code{rvest::read_html}}
 }
 \value{
-returns data.frame of
+returns data.frame with following variables:
+\itemize{
+ \item{job title}
+ \item{company}
+ \item{summary}
+ \item{date}
+ \item{location}
+ \item{url} 
+}
 }
 \description{
 Scrapes indeed.com
+}
+\examples{
+\dontrun{
+ds <- in_scrape("data scientist", "United States")
+da <- in_scrape("data analyst", "New York", 30)
+ds_cn <- in_scrape("data scientist", "Beijing", 10, 
+                   "http://cn.indeed.com/")
+}
+
 }
 

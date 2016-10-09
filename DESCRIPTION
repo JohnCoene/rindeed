@@ -12,3 +12,4 @@ Imports:
     xml2,
     magrittr
 RoxygenNote: 5.0.1
+Suggests: testthat
