@@ -18,12 +18,16 @@ Scrape [indeed.com](www.indeed.com) search results.
 
 ### Examples
 
-```{r}
+```{r, eval=FALSE}
 library(rindeed)
+in_setup(country = "us")
+
 ds <- in_scrape("data scientist", "United States")
 da <- in_scrape("data analyst", "New York", 20)
+head(da, 2)
 ```
 
 ```{r, echo=FALSE}
-knitr::kable(da)
+da <- in_scrape("data analyst", "New York", 20)
+knitr::kable(head(da, 2))
 ```

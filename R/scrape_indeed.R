@@ -4,13 +4,9 @@
 #'
 #' @param q query keyword, "what" on official website. Required
 #' @param l location, "where" on official website. Optional
-#' @param n number of results requested
-#' @param base.url base url for queries defaults to global \code{http://www.indeed.com}
-#' @param sleep break between queries in seconds, applies when requesting more than the default \code{10} results (\code{n})
-#' @param verbose sets verbose of \code{rvest::read_html}
-#'
-#' @importFrom utils URLencode
-#' @import magrittr
+#' @param n number of pages to scrape
+#' @param sleep break between queries in seconds, 
+#' applies when requesting more than the default \code{10} results (\code{n})
 #'
 #' @return returns data.frame with following variables:
 #' \itemize{
@@ -29,33 +25,39 @@
 #' ds_cn <- in_scrape("data scientist", "Beijing", 10, 
 #'                    "http://cn.indeed.com/")
 #' }
+#' 
+#' @importFrom methods is
+#' @import magrittr
+#' 
+#' @seealso \code{\link{in_setup}}
 #'
 #' @export
-in_scrape <- function(q, l, n = 10, base.url = "http://www.indeed.com",
-                      sleep = sample(20:30, 1), verbose = FALSE){
+in_scrape <- function(q, l, n = 1, sleep = sample(20:30, 1)){
+  
+  base.url <- get_base_url()
 
   if(missing(q)) stop("query required")
   if(missing(l)) l <- ""
   
-  if(n <= 10){
+  if(n <= 1){
     
-    res <- scrapy(q, l, n, base.url, start = 0, verbose)
+    res <- scrapy(q, l, n, start = 0)
     
   } else {
-    res <- scrap_n(q, l, n, base.url, verbose, sleep)
+    res <- scrap_n(q, l, n, sleep)
   }
 
   return(res)
 }
 
-scrapy <- function(q, l, n = 10, base.url = "http://www.indeed.com", start = 0,
-                   verbose = FALSE){
+scrapy <- function(q, l, n = 1, start = 0){
 
+  base.url <- get_base_url()
+  
   uri <- xml2::read_html(paste0(base.url, 
                                 "/jobs?q=", gsub(" ", "+", q), 
                                 "&l=", gsub(" ", "+", l), 
-                                "&start=", start),
-                         verbose = verbose)
+                                "&start=", start))
 
   jobtitles <- uri %>%
     rvest::html_nodes(".jobtitle") %>%
@@ -90,18 +92,15 @@ scrapy <- function(q, l, n = 10, base.url = "http://www.indeed.com", start = 0,
   return(scrp)
 }
 
-scrap_n <- function(q, l, n = 10, base.url = "http://www.indeed.com",
-                    verbose = FALSE, sleep = sample(20:30, 1)){
+scrap_n <- function(q, l, n = 1, sleep = sample(20:30, 1)){
   
-  sequ <- seq(0, n, 10)[-length(seq(0, n, 10))]
+  base.url <- get_base_url()
   
   res <- data.frame()
-  
-  for(i in sequ){
-    scraps <- scrapy(q, l, n, base.url, start = i, verbose = verbose)
+  for(i in seq(0, n * 10, 10)[-length(seq(0, n * 10, 10))]){
+    scraps <- scrapy(q, l, n, start = i)
     res <- rbind.data.frame(res, scraps)
     Sys.sleep(sleep)
-    
   }
   
   return(res)

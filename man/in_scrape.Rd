@@ -4,21 +4,17 @@
 \alias{in_scrape}
 \title{Scrape Indeed}
 \usage{
-in_scrape(q, l, n = 10, base.url = "http://www.indeed.com",
-  sleep = sample(20:30, 1), verbose = FALSE)
+in_scrape(q, l, n = 1, sleep = sample(20:30, 1))
 }
 \arguments{
 \item{q}{query keyword, "what" on official website. Required}
 
 \item{l}{location, "where" on official website. Optional}
 
-\item{n}{number of results requested}
+\item{n}{number of pages to scrape}
 
-\item{base.url}{base url for queries defaults to global \code{http://www.indeed.com}}
-
-\item{sleep}{break between queries in seconds, applies when requesting more than the default \code{10} results (\code{n})}
-
-\item{verbose}{sets verbose of \code{rvest::read_html}}
+\item{sleep}{break between queries in seconds, 
+applies when requesting more than the default \code{10} results (\code{n})}
 }
 \value{
 returns data.frame with following variables:
@@ -42,5 +38,8 @@ ds_cn <- in_scrape("data scientist", "Beijing", 10,
                    "http://cn.indeed.com/")
 }
 
+}
+\seealso{
+\code{\link{in_setup}}
 }
 
