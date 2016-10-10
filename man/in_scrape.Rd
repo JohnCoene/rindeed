@@ -4,17 +4,18 @@
 \alias{in_scrape}
 \title{Scrape Indeed}
 \usage{
-in_scrape(q, l, n = 1, sleep = sample(20:30, 1))
+in_scrape(q, l, p = 1, sleep = sample(10:20, 1))
 }
 \arguments{
 \item{q}{query keyword, "what" on official website. Required}
 
 \item{l}{location, "where" on official website. Optional}
 
-\item{n}{number of pages to scrape}
+\item{p}{number of pages to scrape}
 
 \item{sleep}{break between queries in seconds, 
-applies when requesting more than the default \code{10} results (\code{n})}
+applies when requesting more than the default one page of results 
+(\code{p = 1}), defaults to \code{sample(10:20, 1)}}
 }
 \value{
 returns data.frame with following variables:
@@ -32,10 +33,8 @@ Scrapes indeed.com
 }
 \examples{
 \dontrun{
-ds <- in_scrape("data scientist", "United States")
-da <- in_scrape("data analyst", "New York", 30)
-ds_cn <- in_scrape("data scientist", "Beijing", 10, 
-                   "http://cn.indeed.com/")
+in_setup(country = "us") # setup
+ds <- in_scrape(q = "data scientist", l = "Washington", p = 3)
 }
 
 }

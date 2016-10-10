@@ -6,7 +6,8 @@
 #' @param l location, "where" on official website. Optional
 #' @param p number of pages to scrape
 #' @param sleep break between queries in seconds, 
-#' applies when requesting more than the default \code{10} results (\code{n})
+#' applies when requesting more than the default one page of results 
+#' (\code{p = 1}), defaults to \code{sample(10:20, 1)}
 #'
 #' @return returns data.frame with following variables:
 #' \itemize{
@@ -20,10 +21,8 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' ds <- in_scrape("data scientist", "United States")
-#' da <- in_scrape("data analyst", "New York", 3)
-#' ds_cn <- in_scrape("data scientist", "Beijing", 1, 
-#'                    "http://cn.indeed.com/")
+#' in_setup(country = "us") # setup
+#' ds <- in_scrape(q = "data scientist", l = "Washington", p = 3)
 #' }
 #' 
 #' @importFrom methods is
@@ -32,7 +31,7 @@
 #' @seealso \code{\link{in_setup}}
 #'
 #' @export
-in_scrape <- function(q, l, p = 1, sleep = sample(20:30, 1)){
+in_scrape <- function(q, l, p = 1, sleep = sample(10:20, 1)){
   
   base.url <- get_base_url()
 
@@ -92,7 +91,7 @@ scrapy <- function(q, l, p = 1, start = 0){
   return(scrp)
 }
 
-scrap_n <- function(q, l, p = 1, sleep = sample(20:30, 1)){
+scrap_n <- function(q, l, p = 1, sleep = sample(10:20, 1)){
   
   base.url <- get_base_url()
   
