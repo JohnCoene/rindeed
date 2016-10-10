@@ -24,9 +24,9 @@ Scrape [indeed.com](www.indeed.com) search results.
 library(rindeed)
 in_setup(country = "us")
 
-ds <- in_scrape("data scientist", "United States")
-da <- in_scrape("data analyst", "New York", 2)
-head(da, 2)
+ds <- in_scrape(q = "data scientist", l = "New York", p = 2)
+
+head(ds, 2)
 ```
 
 ```{r, include=FALSE}

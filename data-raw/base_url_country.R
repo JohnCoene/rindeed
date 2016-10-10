@@ -78,4 +78,25 @@ base_url_country <- data.frame(
   stringsAsFactors = FALSE
 )
 
-devtools::use_data(base_url_country, internal = TRUE, overwrite = TRUE)
+us <- data.frame(
+  country = c("us"),
+  jobtitles = c(".jobtitle"),
+  companies = c(".company span"),
+  summary = c(".summary"),
+  date= c(".date"),
+  link = c(".jobtitle .turnstileLink"),
+  location = c(".location"))
+
+cn <- data.frame(
+  country = c("cn"),
+  jobtitles = c(".jobtitle"),
+  companies = c(".company"),
+  summary = c(".summary"),
+  date= c(".date"),
+  link = c(".jobtitle .turnstileLink"),
+  location = c(".location"))
+
+country_settings <- rbind.data.frame(us, cn)
+
+devtools::use_data(base_url_country, country_settings, 
+                   internal = TRUE, overwrite = TRUE)

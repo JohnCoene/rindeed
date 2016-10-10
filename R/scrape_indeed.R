@@ -32,18 +32,15 @@
 #'
 #' @export
 in_scrape <- function(q, l, p = 1, sleep = sample(10:20, 1)){
-  
-  base.url <- get_base_url()
 
   if(missing(q)) stop("query required")
   if(missing(l)) l <- ""
   
-  if(p <= 1){
-    
-    res <- scrapy(q, l, p, start = 0)
-    
-  } else {
-    res <- scrap_n(q, l, p, sleep)
+  res <- data.frame()
+  for(i in seq(0, p * 10, 10)[-length(seq(0, p * 10, 10))]){
+    if(i != 0) Sys.sleep(sleep)
+    scraps <- scrapy(q, l, p, start = i)
+    res <- rbind.data.frame(res, scraps)
   }
 
   return(res)
@@ -53,10 +50,13 @@ scrapy <- function(q, l, p = 1, start = 0){
 
   base.url <- get_base_url()
   
-  uri <- xml2::read_html(paste0(base.url, 
-                                "/jobs?q=", gsub(" ", "+", q), 
-                                "&l=", gsub(" ", "+", l), 
-                                "&start=", start))
+  uri <- tryCatch({xml2::read_html(paste0(base.url, 
+                                          "/jobs?q=", gsub(" ", "+", q), 
+                                          "&l=", gsub(" ", "+", l), 
+                                          "&start=", start))}, 
+                  error = function(e) e)
+  
+  if(is(uri, "error")) stop("cannot ping url")
 
   jobtitles <- uri %>%
     rvest::html_nodes(".jobtitle") %>%
@@ -89,18 +89,4 @@ scrapy <- function(q, l, p = 1, start = 0){
                      location = location,
                      url = paste0(base.url, link))
   return(scrp)
-}
-
-scrap_n <- function(q, l, p = 1, sleep = sample(10:20, 1)){
-  
-  base.url <- get_base_url()
-  
-  res <- data.frame()
-  for(i in seq(0, p * 10, 10)[-length(seq(0, p * 10, 10))]){
-    scraps <- scrapy(q, l, p, start = i)
-    res <- rbind.data.frame(res, scraps)
-    Sys.sleep(sleep)
-  }
-  
-  return(res)
 }
