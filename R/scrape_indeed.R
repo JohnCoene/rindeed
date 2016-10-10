@@ -4,7 +4,7 @@
 #'
 #' @param q query keyword, "what" on official website. Required
 #' @param l location, "where" on official website. Optional
-#' @param n number of pages to scrape
+#' @param p number of pages to scrape
 #' @param sleep break between queries in seconds, 
 #' applies when requesting more than the default \code{10} results (\code{n})
 #'
@@ -21,8 +21,8 @@
 #' @examples 
 #' \dontrun{
 #' ds <- in_scrape("data scientist", "United States")
-#' da <- in_scrape("data analyst", "New York", 30)
-#' ds_cn <- in_scrape("data scientist", "Beijing", 10, 
+#' da <- in_scrape("data analyst", "New York", 3)
+#' ds_cn <- in_scrape("data scientist", "Beijing", 1, 
 #'                    "http://cn.indeed.com/")
 #' }
 #' 
@@ -32,25 +32,25 @@
 #' @seealso \code{\link{in_setup}}
 #'
 #' @export
-in_scrape <- function(q, l, n = 1, sleep = sample(20:30, 1)){
+in_scrape <- function(q, l, p = 1, sleep = sample(20:30, 1)){
   
   base.url <- get_base_url()
 
   if(missing(q)) stop("query required")
   if(missing(l)) l <- ""
   
-  if(n <= 1){
+  if(p <= 1){
     
-    res <- scrapy(q, l, n, start = 0)
+    res <- scrapy(q, l, p, start = 0)
     
   } else {
-    res <- scrap_n(q, l, n, sleep)
+    res <- scrap_n(q, l, p, sleep)
   }
 
   return(res)
 }
 
-scrapy <- function(q, l, n = 1, start = 0){
+scrapy <- function(q, l, p = 1, start = 0){
 
   base.url <- get_base_url()
   
@@ -92,13 +92,13 @@ scrapy <- function(q, l, n = 1, start = 0){
   return(scrp)
 }
 
-scrap_n <- function(q, l, n = 1, sleep = sample(20:30, 1)){
+scrap_n <- function(q, l, p = 1, sleep = sample(20:30, 1)){
   
   base.url <- get_base_url()
   
   res <- data.frame()
-  for(i in seq(0, n * 10, 10)[-length(seq(0, n * 10, 10))]){
-    scraps <- scrapy(q, l, n, start = i)
+  for(i in seq(0, p * 10, 10)[-length(seq(0, p * 10, 10))]){
+    scraps <- scrapy(q, l, p, start = i)
     res <- rbind.data.frame(res, scraps)
     Sys.sleep(sleep)
   }

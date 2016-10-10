@@ -2,8 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -11,6 +9,10 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 ```
+
+[![Travis-CI Build Status](https://travis-ci.org/JohnCoene/rindeed.svg?branch=master)](https://travis-ci.org/JohnCoene/rindeed)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/JohnCoene/rindeed?branch=master&svg=true)](https://ci.appveyor.com/project/JohnCoene/rindeed)
+[![Coverage Status](https://img.shields.io/coveralls/JohnCoene/rindeed.svg)](https://coveralls.io/r/JohnCoene/rindeed?branch=master)
 
 # rindeed
 
@@ -23,11 +25,16 @@ library(rindeed)
 in_setup(country = "us")
 
 ds <- in_scrape("data scientist", "United States")
-da <- in_scrape("data analyst", "New York", 20)
+da <- in_scrape("data analyst", "New York", 2)
 head(da, 2)
 ```
 
+```{r, include=FALSE}
+library(rindeed)
+```
+
 ```{r, echo=FALSE}
-da <- in_scrape("data analyst", "New York", 20)
+in_setup(country = "us")
+da <- in_scrape("data analyst", "New York", 1)
 knitr::kable(head(da, 2))
 ```
