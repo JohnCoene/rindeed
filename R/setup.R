@@ -59,7 +59,8 @@
 #' @export
 in_setup <- function(base.url = NULL, country = NULL){
   
-  base.url <- get_in_base_url(base.url, country)
+  df <- get_in_base_url(base.url, country)
   
-  assign("base.url", base.url, envir = url_env)
+  assign("base.url", df$base.url, envir = setup_env)
+  assign("country", df$country, envir = setup_env)
 }
