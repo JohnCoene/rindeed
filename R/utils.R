@@ -41,5 +41,11 @@ get_in_base_url <- function(base.url, country){
 }
 
 parse_date <- function(x){
+  cn <- get("country", envir = setup_env)
   
+  en <- c("us", "uk")
+  
+  if(length(grep(cn, en))){
+    
+  }
 }
