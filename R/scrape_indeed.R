@@ -50,10 +50,10 @@ scrapy <- function(q, l, p = 1, start = 0){
 
   base.url <- get_base_url()
   
-  uri <- tryCatch({xml2::read_html(paste0(base.url, 
-                                          "/jobs?q=", gsub(" ", "+", q), 
-                                          "&l=", gsub(" ", "+", l), 
-                                          "&start=", start))}, 
+  adr <- paste0(base.url, "/jobs?q=", gsub(" ", "+", q), 
+                "&l=", gsub(" ", "+", l), "&start=", start)
+  
+  uri <- tryCatch({xml2::read_html(adr)}, 
                   error = function(e) e)
   
   if(is(uri, "error")) stop("cannot ping url")
