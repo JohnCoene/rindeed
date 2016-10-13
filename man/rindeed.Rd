@@ -20,11 +20,15 @@ rindeed provides a few functions to fetch results from \url{www.indeed.com}.
 \dontrun{
 in_setup(country = "us")
 
-da <- in_scrape(q = "data science", l = "New York", p = 5)
+da_us <- in_scrape(q = "data science", l = "New York", p = 5)
 
-my_settings <- in_settings()
+in_setup(country = "China")
 
+da_cn <- in_scrape("data science", "Beijing")
+
+in_settings()
 }
+
 }
 \keyword{internal}
 
