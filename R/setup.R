@@ -85,7 +85,7 @@ in_settings <- function(){
                        error = function(e) e)
   if(is(base.url, "error")) stop("no settings")
   
-  country <- tryCatch({getOption("base.url")},
+  country <- tryCatch({getOption("country")},
                       error = function(e) e)
   set = data.frame(base.url = base.url,
                    country = country)
