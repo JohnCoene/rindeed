@@ -18,15 +18,25 @@ knitr::opts_chunk$set(
 
 Scrape [indeed.com](www.indeed.com) search results.
 
+### Install
+
+```{r, eval=FALSE}
+devtools::install_github("JohnCoene/rindeed")
+```
+
 ### Examples
 
 ```{r, eval=FALSE}
 library(rindeed)
-in_setup(country = "us")
 
-ds <- in_scrape(q = "data scientist", l = "New York", p = 2)
+in_setup(country = "China")
+bd_ny <- in_scrape(q = "大数据分析", l = "北京", p = 2)
 
-head(ds, 2)
+in_setup(country = "US")
+da_us <- in_scrape("data analyst")
+ds_ny <- in_scrape("data scientist", "New York")
+
+head(ds_ny, 2)
 ```
 
 ```{r, include=FALSE}
@@ -35,6 +45,6 @@ library(rindeed)
 
 ```{r, echo=FALSE}
 in_setup(country = "us")
-da <- in_scrape("data analyst", "New York", 1)
-knitr::kable(head(da, 2))
+ds <- in_scrape("data scientist", "New York")
+knitr::kable(head(ds, 2))
 ```
