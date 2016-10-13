@@ -21,6 +21,8 @@ library(rindeed)
 in_setup(country = "China")
 bd_ny <- in_scrape(q = "大数据分析", l = "北京", p = 2)
 
+my_settings <- in_settings()
+
 in_setup(country = "US")
 da_us <- in_scrape("data analyst")
 ds_ny <- in_scrape("data scientist", "New York")
