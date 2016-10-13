@@ -53,8 +53,7 @@ scrapy <- function(q, l, p = 1, start = 0){
   adr <- paste0(base.url, "/jobs?q=", gsub(" ", "+", q), 
                 "&l=", gsub(" ", "+", l), "&start=", start)
   
-  uri <- tryCatch({xml2::read_html(adr)}, 
-                  error = function(e) e)
+  uri <- tryCatch({xml2::read_html(adr)}, error = function(e) e)
   
   if(is(uri, "error")) stop("cannot ping url")
 
@@ -62,9 +61,15 @@ scrapy <- function(q, l, p = 1, start = 0){
     rvest::html_nodes(".jobtitle") %>%
     rvest::html_text(trim = TRUE)
 
-  companies <- uri %>%
-    rvest::html_nodes(".company span") %>%
-    rvest::html_text(trim = TRUE)
+  if(length(jobtitles) == 10){
+    companies <- uri %>%
+      rvest::html_nodes(".company span") %>%
+      rvest::html_text(trim = TRUE)
+  } else {
+    companies <- uri %>%
+      rvest::html_nodes(".company") %>%
+      rvest::html_text(trim = TRUE)
+  }
 
   summary <- uri %>%
     rvest::html_nodes(".summary") %>%
@@ -74,9 +79,15 @@ scrapy <- function(q, l, p = 1, start = 0){
     rvest::html_nodes(".date") %>%
     rvest::html_text()
 
-  link <- uri %>%
-    rvest::html_nodes(".jobtitle .turnstileLink") %>%
-    rvest::html_attr("href")
+  if(length(jobtitles) == 10){
+    link <- uri %>%
+      rvest::html_nodes(".jobtitle .turnstileLink") %>%
+      rvest::html_attr("href")
+  } else {
+    link <- uri %>%
+      rvest::html_nodes(".jobtitle") %>%
+      rvest::html_attr("href")
+  }
 
   location <- uri %>%
     rvest::html_nodes(".location") %>%
