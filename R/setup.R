@@ -59,10 +59,10 @@
 #' @export
 in_setup <- function(base.url = NULL, country = NULL){
   
-  df <- get_in_base_url(base.url, country)
+  df <- url_country_match(base.url, country)
   
-  assign("base.url", df$base.url, envir = setup_env)
-  assign("country", df$country, envir = setup_env)
+  options(base.url = df$base.url,
+          country = df$country)
 }
 
 #' Retrieve settings
@@ -81,11 +81,11 @@ in_setup <- function(base.url = NULL, country = NULL){
 #' 
 #' @export
 in_settings <- function(){
-  base.url <- tryCatch({get("base.url", setup_env)},
+  base.url <- tryCatch({getOption("base.url")},
                        error = function(e) e)
   if(is(base.url, "error")) stop("no settings")
   
-  country <- tryCatch({get("country", setup_env)},
+  country <- tryCatch({getOption("base.url")},
                       error = function(e) e)
   set = data.frame(base.url = base.url,
                    country = country)
