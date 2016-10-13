@@ -24,6 +24,12 @@ Scrape [indeed.com](www.indeed.com) search results.
 devtools::install_github("JohnCoene/rindeed")
 ```
 
+### Functions
+
+1. `in_setup` - setup session
+2. `in_scrape` - scrape
+3. `in_settings` - get settings
+
 ### Examples
 
 ```{r, eval=FALSE}
