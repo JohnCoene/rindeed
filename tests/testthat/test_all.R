@@ -10,4 +10,8 @@ test_that("in_scrape", {
   Sys.sleep(20)
   da <- in_scrape("data analyst", "New York", 2)
   expect_equal(nrow(da), 20)
+  in_setup(country = "China")
+  Sys.sleep(20)
+  ds_cn <- in_scrape("data analyst", "Beijing")
+  my_settings <- in_settings()
 })
