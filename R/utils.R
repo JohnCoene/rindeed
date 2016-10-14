@@ -20,7 +20,7 @@ url_country_match <- function(base.url, country){
     if(!length(cn)) warning("cannot find country of base.url")
     
     if(cn != country){
-      warning(paste0("did you mean: ", cn, "?"))
+      warning(paste0("did you mean country = ", cn, "?"))
     }
   }
   
