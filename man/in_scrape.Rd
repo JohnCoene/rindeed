@@ -4,7 +4,7 @@
 \alias{in_scrape}
 \title{Scrape Indeed}
 \usage{
-in_scrape(q, l, p = 1, sleep = sample(10:20, 1))
+in_scrape(q, l, p = 1, sleep = sample(15:20, 1))
 }
 \arguments{
 \item{q}{query keyword, "what" on official website. Required}
@@ -34,6 +34,7 @@ Scrapes indeed.com
 \examples{
 \dontrun{
 in_setup(country = "us") # setup
+options(stringsAsFactors = FALSE)
 ds <- in_scrape(q = "data scientist", l = "Washington", p = 3)
 }
 
