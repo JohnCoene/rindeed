@@ -22,6 +22,7 @@
 #' @examples 
 #' \dontrun{
 #' in_setup(country = "us") # setup
+#' options(stringsAsFactors = FALSE)
 #' ds <- in_scrape(q = "data scientist", l = "Washington", p = 3)
 #' }
 #' 
@@ -31,7 +32,7 @@
 #' @seealso \code{\link{in_setup}}
 #'
 #' @export
-in_scrape <- function(q, l, p = 1, sleep = sample(10:20, 1)){
+in_scrape <- function(q, l, p = 1, sleep = sample(15:20, 1)){
 
   if(missing(q)) stop("query required")
   if(missing(l)) l <- ""
