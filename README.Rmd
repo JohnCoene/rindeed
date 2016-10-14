@@ -36,6 +36,7 @@ devtools::install_github("JohnCoene/rindeed")
 library(rindeed)
 
 in_setup(country = "China")
+options(stringsAsFactors = FALSE)
 bd_ny <- in_scrape(q = "大数据分析", l = "北京", p = 2)
 
 my_settings <- in_settings()
