@@ -66,4 +66,7 @@ in_setup(base.url = "http://www.indeed.com")
 in_setup(country = "us")
 
 }
+\author{
+John Coene \email{jcoenep@gmail.com}
+}
 

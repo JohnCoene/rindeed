@@ -56,6 +56,8 @@
 #' in_setup(base.url = "http://www.indeed.com")
 #' in_setup(country = "us")
 #' 
+#' @author John Coene \email{jcoenep@gmail.com}
+#' 
 #' @export
 in_setup <- function(base.url = NULL, country = NULL){
   
@@ -78,6 +80,8 @@ in_setup <- function(base.url = NULL, country = NULL){
 #' @examples
 #' in_setup(country = "us") 
 #' (my_settings <- in_settings())
+#' 
+#' @author John Coene \email{jcoenep@gmail.com}
 #' 
 #' @export
 in_settings <- function(){

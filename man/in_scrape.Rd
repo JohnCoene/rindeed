@@ -39,6 +39,9 @@ ds <- in_scrape(q = "data scientist", l = "Washington", p = 3)
 }
 
 }
+\author{
+John Coene \email{jcoenep@gmail.com}
+}
 \seealso{
 \code{\link{in_setup}}
 }

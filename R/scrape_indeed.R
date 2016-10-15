@@ -30,6 +30,8 @@
 #' @import magrittr
 #' 
 #' @seealso \code{\link{in_setup}}
+#' 
+#' @author John Coene \email{jcoenep@gmail.com}
 #'
 #' @export
 in_scrape <- function(q, l, p = 1, sleep = sample(15:20, 1)){

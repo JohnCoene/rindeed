@@ -21,4 +21,7 @@ in_setup(country = "us")
 (my_settings <- in_settings())
 
 }
+\author{
+John Coene \email{jcoenep@gmail.com}
+}
 
